@@ -63,9 +63,9 @@ public class Program {
 
     public static List<String> readInput() {
         try (
-                InputStream inputStream = Program.class.getClassLoader().getResourceAsStream("day01.txt");
-                var inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-                var bufferedReader = new BufferedReader(inputStreamReader);
+            InputStream inputStream = Program.class.getClassLoader().getResourceAsStream("day01.txt");
+            var inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+            var bufferedReader = new BufferedReader(inputStreamReader);
         ) {
             return bufferedReader.lines().toList();
         } catch (Exception e) {

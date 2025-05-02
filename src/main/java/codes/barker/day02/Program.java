@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.List;
 
 public class Program {
@@ -18,85 +17,94 @@ public class Program {
 
     public static int solve() {
         List<String> input = readInput();
-        int validPasswords = 0;
+        int validLines = 0;
 
         for (String line : input) {
-            HashMap<String, Object> parsed = parseLine(line);
-            String password = (String) parsed.get("password");
-            String letter = (String) parsed.get("letter");
-            int min = (int) parsed.get("min");
-            int max = (int) parsed.get("max");
+            Line parsed = parseLine(line);
 
-            if (isValidPassword(password, letter, min, max)) {
-                validPasswords++;
+            if (isValidLine(parsed)) {
+                validLines++;
             }
         }
 
-        return validPasswords;
+        return validLines;
     }
 
     public static int solve2() {
         List<String> input = readInput();
-        int validPasswords = 0;
+        int validLines = 0;
 
         for (String line : input) {
-            HashMap<String, Object> parsed = parseLine(line);
-            String password = (String) parsed.get("password");
-            String letter = (String) parsed.get("letter");
-            int min = (int) parsed.get("min");
-            int max = (int) parsed.get("max");
+            Line2 parsed = parseLine2(line);
 
-            if (isValidPassword2(password, letter, min, max)) {
-                validPasswords++;
+            if (isValidLine2(parsed)) {
+                validLines++;
             }
         }
 
-        return validPasswords;
+        return validLines;
     }
 
-    public static boolean isValidPassword(String password, String target, int min, int max) {
-        String[] letters = password.split("");
+    public static boolean isValidLine(Line line) {
+        String[] letters = line.password().split("");
         int count = 0;
 
         for (String letter : letters) {
-            if (letter.equals(target)) {
+            if (letter.equals(line.letter())) {
                 count++;
             }
         }
 
-        return count >= min && count <= max;
+        return count >= line.min() && count <= line.max();
     }
 
-    public static boolean isValidPassword2(String password, String target, int i, int j) {
-        String[] letters = password.split("");
-        return letters[i - 1].equals(target) ^ letters[j - 1].equals(target);
+    public static boolean isValidLine2(Line2 line) {
+        String[] letters = line.password().split("");
+        String letter = line.letter();
+
+        int i = line.i();
+        int j = line.j();
+
+        return letters[i].equals(letter) ^ letters[j].equals(letter);
     }
 
-    public static HashMap<String, Object> parseLine(String line) {
-        var parsed = new HashMap<String, Object>();
-
+    public static Line parseLine(String line) {
         String[] temp = line.split(": ");
         String passwordPolicy = temp[0];
         String password = temp[1];
-        parsed.put("password", password);
 
         temp = passwordPolicy.split(" ");
         String range = temp[0];
         String letter = temp[1];
-        parsed.put("letter", letter);
 
         temp = range.split("-");
-        parsed.put("min", Integer.parseInt(temp[0]));
-        parsed.put("max", Integer.parseInt(temp[1]));
+        int min = Integer.parseInt(temp[0]);
+        int max = Integer.parseInt(temp[1]);
 
-        return parsed;
+        return new Line(password, letter, min, max);
+    }
+
+    public static Line2 parseLine2(String line) {
+        String[] temp = line.split(": ");
+        String passwordPolicy = temp[0];
+        String password = temp[1];
+
+        temp = passwordPolicy.split(" ");
+        String range = temp[0];
+        String letter = temp[1];
+
+        temp = range.split("-");
+        int i = Integer.parseInt(temp[0]) - 1;
+        int j = Integer.parseInt(temp[1]) - 1;
+
+        return new Line2(password, letter, i, j);
     }
 
     public static List<String> readInput() {
         try (
-                InputStream inputStream = Program.class.getClassLoader().getResourceAsStream("day02.txt");
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            InputStream inputStream = Program.class.getClassLoader().getResourceAsStream("day02.txt");
+            var inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+            var bufferedReader = new BufferedReader(inputStreamReader);
         ) {
             return bufferedReader.lines().toList();
         } catch (Exception e) {
