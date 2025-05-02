@@ -11,6 +11,9 @@ public class Day02 {
     public static void main(String[] args) {
         int part01 = solvePart01();
         System.out.println(part01);
+
+        int part02 = solvePart02();
+        System.out.println(part02);
     }
 
     public static int solvePart01() {
@@ -32,6 +35,25 @@ public class Day02 {
         return validPasswords;
     }
 
+    public static int solvePart02() {
+        List<String> input = readInput();
+        int validPasswords = 0;
+
+        for (String line : input) {
+            HashMap<String, Object> parsed = parseLine(line);
+            String password = (String) parsed.get("password");
+            String letter = (String) parsed.get("letter");
+            int min = (int) parsed.get("min");
+            int max = (int) parsed.get("max");
+
+            if (isValidPassword2(password, letter, min, max)) {
+                validPasswords++;
+            }
+        }
+
+        return validPasswords;
+    }
+
     public static boolean isValidPassword(String password, String target, int min, int max) {
         String[] letters = password.split("");
         int count = 0;
@@ -43,6 +65,11 @@ public class Day02 {
         }
 
         return count >= min && count <= max;
+    }
+
+    public static boolean isValidPassword2(String password, String target, int i, int j) {
+        String[] letters = password.split("");
+        return letters[i - 1].equals(target) ^ letters[j - 1].equals(target);
     }
 
     public static HashMap<String, Object> parseLine(String line) {
