@@ -1,20 +1,21 @@
 package codes.barker.day01;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-public class Day01 {
+public class Program {
     public static void main(String[] args) {
-        int part01 = solvePart01();
-        System.out.println(part01);
+        int answer = solve();
+        System.out.println(answer);
 
-        int part02 = solvePart02();
-        System.out.println(part02);
+        int answer2 = solve2();
+        System.out.println(answer2);
     }
 
-    public static int solvePart01() {
+    public static int solve() {
         List<String> input = readInput();
         int[] entries = input.stream().mapToInt(Integer::valueOf).toArray();
 
@@ -35,7 +36,7 @@ public class Day01 {
         return x * y;
     }
 
-    public static int solvePart02() {
+    public static int solve2() {
         List<String> input = readInput();
         int[] entries = input.stream().mapToInt(Integer::valueOf).toArray();
 
@@ -62,11 +63,11 @@ public class Day01 {
 
     public static List<String> readInput() {
         try (
-                var inputStream = Day01.class.getClassLoader().getResourceAsStream("day01.txt");
+                InputStream inputStream = Program.class.getClassLoader().getResourceAsStream("day01.txt");
                 var inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-                var reader = new BufferedReader(inputStreamReader);
+                var bufferedReader = new BufferedReader(inputStreamReader);
         ) {
-            return reader.lines().toList();
+            return bufferedReader.lines().toList();
         } catch (Exception e) {
             e.printStackTrace();
             return List.of();

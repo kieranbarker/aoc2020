@@ -7,16 +7,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 
-public class Day02 {
+public class Program {
     public static void main(String[] args) {
-        int part01 = solvePart01();
-        System.out.println(part01);
+        int answer = solve();
+        System.out.println(answer);
 
-        int part02 = solvePart02();
-        System.out.println(part02);
+        int answer2 = solve2();
+        System.out.println(answer2);
     }
 
-    public static int solvePart01() {
+    public static int solve() {
         List<String> input = readInput();
         int validPasswords = 0;
 
@@ -35,7 +35,7 @@ public class Day02 {
         return validPasswords;
     }
 
-    public static int solvePart02() {
+    public static int solve2() {
         List<String> input = readInput();
         int validPasswords = 0;
 
@@ -94,9 +94,9 @@ public class Day02 {
 
     public static List<String> readInput() {
         try (
-            InputStream inputStream = Day02.class.getClassLoader().getResourceAsStream("day02.txt");
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                InputStream inputStream = Program.class.getClassLoader().getResourceAsStream("day02.txt");
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
         ) {
             return bufferedReader.lines().toList();
         } catch (Exception e) {
