@@ -7,31 +7,56 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class Program {
+    private static final List<String> input = readInput("day03.txt");
+    private static final String[][] grid = parseInput(input);
+
+    private static final int rows = grid.length;
+    private static final int cols = grid[0].length;
+
     public static void main(String[] args) {
         int answer = solve();
         System.out.println(answer);
+
+        long answer2 = solve2();
+        System.out.println(answer2);
     }
 
     public static int solve() {
-        List<String> input = readInput();
-        String[][] grid = parseInput(input);
+        return countTrees(1, 3);
+    }
 
-        int rows = grid.length;
-        int cols = grid[0].length;
+    public static long solve2() {
+        int[][] slopes = {
+                {1, 1},
+                {1, 3},
+                {1, 5},
+                {1, 7},
+                {2, 1},
+        };
 
+        long product = 1;
+
+        for (int[] slope : slopes) {
+            product *= countTrees(slope[0], slope[1]);
+        }
+
+        return product;
+    }
+
+    public static int countTrees(int stepI, int stepJ) {
         int i = 0;
         int j = 0;
 
         int trees = 0;
 
         while (true) {
-            j += 3;
+            j += stepJ;
 
             if (j >= cols) {
                 j -= cols;
             }
 
-            i++;
+            i += stepI;
 
             if (i >= rows) {
                 break;
@@ -58,9 +83,9 @@ public class Program {
         return grid;
     }
 
-    public static List<String> readInput() {
+    public static List<String> readInput(String name) {
         try (
-                InputStream inputStream = Program.class.getClassLoader().getResourceAsStream("day03.txt");
+                InputStream inputStream = Program.class.getClassLoader().getResourceAsStream(name);
                 var inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
                 var bufferedReader = new BufferedReader(inputStreamReader);
         ) {
