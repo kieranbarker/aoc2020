@@ -59,8 +59,8 @@ public class Program {
         String height = fields.get("hgt");
         if (!isValidHeight(height)) return false;
 
-        String hcl = fields.get("hcl");
-        if (!isValidHairColor(hcl)) return false;
+        String hairColor = fields.get("hcl");
+        if (!isValidHairColor(hairColor)) return false;
 
         String eyeColor = fields.get("ecl");
         if (!isValidEyeColor(eyeColor)) return false;
