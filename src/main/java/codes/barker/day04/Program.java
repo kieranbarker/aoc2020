@@ -10,9 +10,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Program {
-    private static final String input = readInput("day04.txt");
-    private static final String[] passports = input.split("\\n\\n");
-
     public static void main(String[] args) {
         long answer = solve();
         System.out.println(answer);
@@ -22,10 +19,14 @@ public class Program {
     }
 
     private static long solve() {
+        String input = readInput("day04.txt");
+        String[] passports = input.split("\\n\\n");
         return Arrays.stream(passports).filter(Program::isValidPassport).count();
     }
 
     private static long solve2() {
+        String input = readInput("day04.txt");
+        String[] passports = input.split("\\n\\n");
         return Arrays.stream(passports).filter(Program::isValidPassport2).count();
     }
 
