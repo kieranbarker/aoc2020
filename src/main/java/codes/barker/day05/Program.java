@@ -11,12 +11,21 @@ public class Program {
     public static void main(String[] args) {
         int answer = solve();
         System.out.println(answer);
+
+        int answer2 = solve2();
+        System.out.println(answer2);
     }
 
     private static int solve() {
         List<String> boardingPasses = readInput("day05.txt");
         IntStream seatIDs = boardingPasses.stream().mapToInt(Program::getSeatID);
         return seatIDs.max().orElseThrow();
+    }
+
+    private static int solve2() {
+        List<String> boardingPasses = readInput("day05.txt");
+        int[] seatIDs = boardingPasses.stream().mapToInt(Program::getSeatID).sorted().toArray();
+        return findMissingSeatID(seatIDs);
     }
 
     private static int getRowNum(String row) {
@@ -67,6 +76,22 @@ public class Program {
         int colNum = getColNum(col);
 
         return getSeatID(rowNum, colNum);
+    }
+
+    private static int findMissingSeatID(int[] seatIDs) {
+        int missingSeatID = -1;
+
+        for (int i = 0; i < seatIDs.length - 1; i++) {
+            int seatID = seatIDs[i];
+            int nextSeatID = seatIDs[i + 1];
+
+            if (nextSeatID != seatID + 1) {
+                missingSeatID = seatID + 1;
+                break;
+            }
+        }
+
+        return missingSeatID;
     }
 
     private static List<String> readInput(String name) {
