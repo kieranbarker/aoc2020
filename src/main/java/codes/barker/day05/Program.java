@@ -98,7 +98,7 @@ public class Program {
         try (
                 InputStream inputStream = Program.class.getClassLoader().getResourceAsStream(name);
                 var inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-                var bufferedReader = new BufferedReader(inputStreamReader);
+                var bufferedReader = new BufferedReader(inputStreamReader)
         ) {
             return bufferedReader.lines().toList();
         } catch (Exception e) {

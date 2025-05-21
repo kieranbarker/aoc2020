@@ -15,7 +15,7 @@ public class Program {
         System.out.println(answer2);
     }
 
-    public static int solve() {
+    private static int solve() {
         List<String> input = readInput();
         int validLines = 0;
 
@@ -30,7 +30,7 @@ public class Program {
         return validLines;
     }
 
-    public static int solve2() {
+    private static int solve2() {
         List<String> input = readInput();
         int validLines = 0;
 
@@ -45,7 +45,7 @@ public class Program {
         return validLines;
     }
 
-    public static boolean isValidLine(Line line) {
+    private static boolean isValidLine(Line line) {
         String[] letters = line.password().split("");
         int count = 0;
 
@@ -58,7 +58,7 @@ public class Program {
         return count >= line.min() && count <= line.max();
     }
 
-    public static boolean isValidLine2(Line2 line) {
+    private static boolean isValidLine2(Line2 line) {
         String[] letters = line.password().split("");
         String letter = line.letter();
 
@@ -68,7 +68,7 @@ public class Program {
         return letters[i].equals(letter) ^ letters[j].equals(letter);
     }
 
-    public static Line parseLine(String line) {
+    private static Line parseLine(String line) {
         String[] temp = line.split(": ");
         String passwordPolicy = temp[0];
         String password = temp[1];
@@ -84,7 +84,7 @@ public class Program {
         return new Line(password, letter, min, max);
     }
 
-    public static Line2 parseLine2(String line) {
+    private static Line2 parseLine2(String line) {
         String[] temp = line.split(": ");
         String passwordPolicy = temp[0];
         String password = temp[1];
@@ -100,11 +100,11 @@ public class Program {
         return new Line2(password, letter, i, j);
     }
 
-    public static List<String> readInput() {
+    private static List<String> readInput() {
         try (
-            InputStream inputStream = Program.class.getClassLoader().getResourceAsStream("day02.txt");
-            var inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-            var bufferedReader = new BufferedReader(inputStreamReader);
+                InputStream inputStream = Program.class.getClassLoader().getResourceAsStream("day02.txt");
+                var inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+                var bufferedReader = new BufferedReader(inputStreamReader)
         ) {
             return bufferedReader.lines().toList();
         } catch (Exception e) {

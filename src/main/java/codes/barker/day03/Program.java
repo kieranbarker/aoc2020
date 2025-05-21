@@ -21,11 +21,11 @@ public class Program {
         System.out.println(answer2);
     }
 
-    public static int solve() {
+    private static int solve() {
         return countTrees(1, 3);
     }
 
-    public static long solve2() {
+    private static long solve2() {
         int[][] slopes = {
                 {1, 1},
                 {1, 3},
@@ -43,7 +43,7 @@ public class Program {
         return product;
     }
 
-    public static int countTrees(int stepI, int stepJ) {
+    private static int countTrees(int stepI, int stepJ) {
         int i = 0;
         int j = 0;
 
@@ -70,7 +70,7 @@ public class Program {
         return trees;
     }
 
-    public static String[][] parseInput(List<String> input) {
+    private static String[][] parseInput(List<String> input) {
         int rows = input.size();
         int cols = input.getFirst().length();
 
@@ -83,11 +83,11 @@ public class Program {
         return grid;
     }
 
-    public static List<String> readInput(String name) {
+    private static List<String> readInput(String name) {
         try (
                 InputStream inputStream = Program.class.getClassLoader().getResourceAsStream(name);
                 var inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-                var bufferedReader = new BufferedReader(inputStreamReader);
+                var bufferedReader = new BufferedReader(inputStreamReader)
         ) {
             return bufferedReader.lines().toList();
         } catch (Exception e) {

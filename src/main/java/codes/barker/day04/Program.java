@@ -119,9 +119,9 @@ public class Program {
 
     private static String readInput(String name) {
         try (
-                InputStream inputStream = codes.barker.day03.Program.class.getClassLoader().getResourceAsStream(name);
+                InputStream inputStream = Program.class.getClassLoader().getResourceAsStream(name);
                 var inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-                var bufferedReader = new BufferedReader(inputStreamReader);
+                var bufferedReader = new BufferedReader(inputStreamReader)
         ) {
             return bufferedReader.lines().collect(Collectors.joining("\n"));
         } catch (Exception e) {
