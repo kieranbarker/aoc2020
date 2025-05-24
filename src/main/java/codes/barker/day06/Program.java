@@ -50,7 +50,6 @@ public class Program {
                 List<String> answerList = Arrays.asList(answers);
                 Set<String> answerSet = new HashSet<>(answerList);
                 set.retainAll(answerSet);
-
             }
 
             sum += set.size();
