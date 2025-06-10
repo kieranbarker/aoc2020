@@ -13,6 +13,9 @@ public class Program {
     public static void main(String[] args) {
         int answer = solve();
         System.out.println(answer);
+
+        int answer2 = solve2();
+        System.out.println(answer2);
     }
 
     private static int solve() {
@@ -30,6 +33,14 @@ public class Program {
 
         return count;
     }
+
+    private static int solve2() {
+        List<String> input = readInput();
+        Map<String, Map<String, Integer>> parsed = parseInput(input);
+        Map<String, Integer> memo = new HashMap<>();
+        return countBags("shiny gold", parsed, memo);
+    }
+
 
     private static boolean isMatch(
             String color,
@@ -58,6 +69,26 @@ public class Program {
 
         memo.put(color, false);
         return false;
+    }
+
+    private static int countBags(String color, Map<String, Map<String, Integer>> parsed, Map<String, Integer> memo) {
+        if (memo.containsKey(color)) return memo.get(color);
+        Map<String, Integer> contents = parsed.get(color);
+
+        if (contents.isEmpty()) {
+            memo.put(color, 0);
+            return 0;
+        }
+
+        int total = 0;
+
+        for (Map.Entry<String, Integer> entry : contents.entrySet()) {
+            int quantity = entry.getValue();
+            total += quantity + quantity * countBags(entry.getKey(), parsed, memo);
+        }
+
+        memo.put(color, total);
+        return total;
     }
 
 
